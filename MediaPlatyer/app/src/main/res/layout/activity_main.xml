@@ -18,7 +18,8 @@
         />
 
     <Button
-        android:text="MyNameIS"
+        android:text="Press Here to hear a stupid song.
+        P.s Im amazing!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button"
