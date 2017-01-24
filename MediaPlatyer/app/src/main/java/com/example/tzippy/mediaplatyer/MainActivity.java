@@ -17,14 +17,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.button).setOnClickListener(new HandleClick());
-        mediaPlayer = MediaPlayer.create(this, R.raw.song);
-
+        findViewById(R.id.start_button).setOnClickListener(new HandleStatrtClick());
+        findViewById(R.id.stop_button).setOnClickListener(new HandleStopClick());
+        mediaPlayer = null;
     }
 
-    private class HandleClick implements OnClickListener{
+    private class HandleStopClick implements OnClickListener {
 
         public void onClick(View arg0) {
+            Button btn = (Button)arg0;  //cast view to a button
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+        }
+    }
+
+    private class HandleStatrtClick implements OnClickListener{
+
+        public void onClick(View arg0) {
+            if (mediaPlayer == null) {
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.song);
+            }
             Button btn = (Button)arg0;  //cast view to a button
             // get a reference to the TextView
             TextView tv = (TextView) findViewById(R.id.main_text);
@@ -118,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     "I, I, I shake it off, I shake it off (you've got to),\n" +
                     "I, I, I shake it off, I shake it off,\n" +
                     "I, I, I shake it off, I shake it off");
-            if(mediaPlayer.isPlaying() == true)
+            if(mediaPlayer.isPlaying())
                 mediaPlayer.pause();
             else
                 mediaPlayer.start();
